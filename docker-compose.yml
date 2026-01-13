@@ -3,29 +3,23 @@
 
 version: '3.9'
 services:
-  n8n:
-    image: n8nio/n8n:latest
-    container_name: n8n
-    restart: unless-stopped
+  mysql:
+    image: mysql:8
+    container_name: mysql
     ports:
-    - 5678:443
+    - 3306:3306
     environment:
-      N8N_HOST: n8n.888595.xyz
-      N8N_PORT: '443'
-      N8N_PROTOCOL: https
-      WEBHOOK_URL: https://n8n.888595.xyz/
-      GENERIC_TIMEZONE: Asia/Shanghai
-      TZ: Asia/Shanghai
-      N8N_EMAIL_MODE: smtp
-      N8N_SMTP_HOST: smtp.gmail.com
-      N8N_SMTP_PORT: '587'
-      N8N_SMTP_USER: nshshvevyauaj@gmail.com
-      N8N_SMTP_PASS: ogxr ykwb jeiw poeb
-      N8N_SMTP_SENDER: n8n@888595.xyz
-      N8N_SMTP_SSL: 'false'
-      N8N_SMTP_STARTTLS: 'true'
-      N8N_LANG: zh-CN
-      N8N_DEFAULT_LOCALE: zh-CN
+      MYSQL_ROOT_PASSWORD: secret
     volumes:
-    - ./dist:/usr/local/lib/node_modules/n8n/node_modules/n8n-editor-ui/dist
-    - ./n8n_data:/home/node/.n8n
+    - mysql_data:/var/lib/mysql
+  app:
+    image: node:14
+    container_name: app
+    ports:
+    - 3000:3000
+    environment:
+      NODE_ENV: prod
+    volumes:
+    - ./app:/app
+    links:
+    - mysql:db
