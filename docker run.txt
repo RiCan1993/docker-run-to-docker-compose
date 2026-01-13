@@ -1,0 +1,23 @@
+docker run -d \
+  --name n8n \
+  --restart unless-stopped \
+  -p 5678:443 \
+  -e N8N_HOST=n8n.888595.xyz \
+  -e N8N_PORT=443 \
+  -e N8N_PROTOCOL=https \
+  -e WEBHOOK_URL=https://n8n.888595.xyz/ \
+  -e GENERIC_TIMEZONE="Asia/Shanghai" \
+  -e TZ="Asia/Shanghai" \
+  -e N8N_EMAIL_MODE=smtp \
+  -e N8N_SMTP_HOST=smtp.gmail.com \
+  -e N8N_SMTP_PORT=587 \
+  -e N8N_SMTP_USER=nshshvevyauaj@gmail.com \
+  -e N8N_SMTP_PASS="ogxr ykwb jeiw poeb" \
+  -e N8N_SMTP_SENDER=n8n@888595.xyz \
+  -e N8N_SMTP_SSL=false \
+  -e N8N_SMTP_STARTTLS=true \
+  -e N8N_LANG=zh-CN \
+  -e N8N_DEFAULT_LOCALE=zh-CN \
+  -v ./dist:/usr/local/lib/node_modules/n8n/node_modules/n8n-editor-ui/dist \
+  -v ./n8n_data:/home/node/.n8n \
+  n8nio/n8n:latest
