@@ -16,7 +16,7 @@ docker run --name web -p 80:80 --link redis:db -d nginx
 ### 2️⃣ 运行转换
 
 ```bash
-python docker run to compose.py
+python docker-run-to-compose.py
 ```
 
 ### 3️⃣ 获取结果
